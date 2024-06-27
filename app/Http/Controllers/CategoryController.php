@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index', ['categories' => Category::orderBy('id', 'ASC')->get()]);        
+        return view('admin.category.index', ['categories' => Category::orderBy('id', 'ASC')->paginate(10)]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-       return view('admin.category.create');
+        return view('admin.category.create');
     }
 
     /**
@@ -36,28 +36,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'name'=>'required|unique:categories|max:255',
-            'description'=>'required|max:255',
-            'slug'=>'required|unique:categories|max:255',
-        ],[
-            'name.required' => 'Tên phải tồn tại nhé.',
+        $request->validate([
+            'name' => 'required|unique:categories|max:255',
+            'description' => 'required|max:255',
+            'slug' => 'required|unique:categories|max:255',
+        ], [
+            'name.required' => 'Vui lòng không bỏ trống tên.',
             'name.max' => 'Tên chỉ có tối đa 255 ký tự.',
             'name.unique' => 'Tên danh mục đã tồn tại.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.unique' => 'Tên slug đã tồn tại.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
             'description.max' => 'Mô tả chỉ có tối đa 255 ký tự.',
         ]);
-        $data =$request->all();
+        $data = $request->all();
         DB::table('categories')->insert([
-            'name'=>$data['name'],
-            'description'=>$data['description'],
-            'status'=>$data['status'],
-            'slug'=>$data['slug'],
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+            'slug' => $data['slug'],
         ]);
-        return redirect()->route('quan-ly-danh-muc.create')->with('success','Thêm mới danh mục thành công');
+        return redirect()->route('quan-ly-danh-muc.create')->with('success', 'Thêm mới danh mục thành công');
     }
 
     /**
@@ -80,8 +80,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-       $category= Category::find($id);
-        return view('admin.category.edit',['category' =>$category]);
+        $category = Category::find($id);
+        return view('admin.category.edit', ['category' => $category]);
     }
 
     /**
@@ -96,23 +96,23 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'slug'=>'required|max:255',
+            'slug' => 'required|max:255',
         ], [
-            'name.required' => 'Tên phải tồn tại nhé.',
+            'name.required' => 'Vui lòng không bỏ trống tên.',
             'name.max' => 'Tên chỉ có tối đa 255 ký tự.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
             'description.max' => 'Mô tả chỉ có tối đa 255 ký tự.',
         ]);
-    
+
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->status = $request->input('status');
         $category->slug = $request->input('slug');
         $category->save();
-    
+
         return redirect()->back()->with('success', 'Cập nhật danh mục thành công');
     }
 
@@ -125,6 +125,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect()->route('quan-ly-danh-muc.index')->with('success','Xóa danh mục thành công');
+        return redirect()->route('quan-ly-danh-muc.index')->with('success', 'Xóa danh mục thành công');
     }
 }

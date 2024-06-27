@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="description" class="form-label">Mô tả danh mục</label>
-                            <input value="{{ old('description') }}" name="description" type="text" class="form-control" id="description">
+                            <textarea class="form-control" name="description" id="description" rows="5" style="resize: none;"></textarea>
                         </div>
                         <div class="col-md-6">
                             <label for="status" class="form-label">Kích hoạt</label>

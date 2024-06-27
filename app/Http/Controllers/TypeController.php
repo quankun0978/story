@@ -15,7 +15,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return view('admin.type.index', ['types' => Type::orderBy('id', 'ASC')->get()]);        
+        return view('admin.type.index', ['types' => Type::orderBy('id', 'ASC')->paginate(10)]);        
 
     }
 
@@ -43,13 +43,13 @@ class TypeController extends Controller
             'description'=>'required|max:255',
             'slug'=>'required|unique:types|max:255',
         ],[
-            'name.required' => 'Tên phải tồn tại nhé.',
+            'name.required' => 'Vui lòng không bỏ trống tên.',
             'name.max' => 'Tên chỉ có tối đa 255 ký tự.',
             'name.unique' => 'Tên danh mục đã tồn tại.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.unique' => 'Tên slug đã tồn tại.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
             'description.max' => 'Mô tả chỉ có tối đa 255 ký tự.',
         ]);
         $data =$request->all();
@@ -99,11 +99,11 @@ class TypeController extends Controller
             'description' => 'required|max:255',
             'slug'=>'required|max:255',
         ], [
-            'name.required' => 'Tên phải tồn tại nhé.',
+            'name.required' => 'Vui lòng không bỏ trống tên.',
             'name.max' => 'Tên chỉ có tối đa 255 ký tự.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
             'description.max' => 'Mô tả chỉ có tối đa 255 ký tự.',
         ]);
     

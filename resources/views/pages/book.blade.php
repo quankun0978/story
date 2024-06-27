@@ -25,7 +25,6 @@
               @else chưa rõ
               @endif
             </li>
-            <li>Số quan-ly-chapter :200</li>
             <li>Số lượt đọc :2000</li>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Xem nhanh

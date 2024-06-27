@@ -55,17 +55,17 @@
                             <input value="{{ $book->link_pdf }}" name="link_pdf" type="text" class="form-control" id="link_pdf">
                         </div>
                         <div class="col-md-12">
-                            <label for="image" class="form-label">Hình ảnh sách truyện</label>
+                            <label for="image" class="form-label">Hình ảnh sách</label>
                             <input type="file" id="image" name="image" class="form-control-file d-block" aria-label="file example">
                             <br>
                             <img style="width: 90px;" height="100px" src="{{ asset('uploads/books/'.$book->image) }}" alt="">
                         </div>
                         <div class="col-md-12">
-                            <label for="description" class="form-label">Tóm tắt sách truyện</label>
+                            <label for="description" class="form-label">Tóm tắt sách</label>
                             <textarea class="form-control" name="description" id="description" rows="5" style="resize: none;">{{ $book->description }}</textarea>
                         </div>
                         <div class="col-md-12">
-                            <label for="content" class="form-label">Nội dung sách truyện</label>
+                            <label for="content" class="form-label">Nội dung sách</label>
                             <textarea class="form-control" name="content" id="content" rows="5" style="resize: none;">{{ $book->content }}</textarea>
                         </div>
                         <div class="col-12">

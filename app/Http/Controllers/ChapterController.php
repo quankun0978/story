@@ -15,8 +15,7 @@ class ChapterController extends Controller
      */
     public function index()
     {
-        return view('admin.quan-ly-chapter.index', ['chapters' => Chapter::orderBy('id', 'ASC')->get()]);        
-
+        return view('admin.chapter.index', ['chapters' => Chapter::orderBy('id', 'ASC')->paginate(10)]);
     }
 
     /**
@@ -27,7 +26,7 @@ class ChapterController extends Controller
     public function create()
     {
         $stories = DB::table('stories')->get();
-        return view('admin.quan-ly-chapter.create',compact('stories'));
+        return view('admin.chapter.create', compact('stories'));
     }
 
     /**
@@ -39,34 +38,34 @@ class ChapterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required|unique:chapters|max:255',
-            'description'=>'required|max:255',
-            'content'=>'required',
-            'slug'=>'required|unique:chapters|max:255',
-          
-        ],[
-            'title.required' => 'Tên phải tồn tại nhé.',
+            'title' => 'required|unique:chapters|max:255',
+            'description' => 'required|max:255',
+            'content' => 'required',
+            'slug' => 'required|unique:chapters|max:255',
+
+        ], [
+            'title.required' => 'Vui lòng không bỏ trống tên.',
             'title.max' => 'Tên chỉ có tối đa 255 ký tự.',
-            'title.unique' => 'Tên sách truyện đã tồn tại.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'title.unique' => 'Tên truyện đã tồn tại.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.unique' => 'Tên slug đã tồn tại.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
             'description.max' => 'Mô tả chỉ có tối đa 255 ký tự.',
-            'content.required' => 'Nội dung bắt buộc phải có.',
+            'content.required' => 'Vui lòng không bỏ trống nội dung.',
 
         ]);
-        $data =$request->all();
+        $data = $request->all();
         DB::table('chapters')->insert([
-            'title'=>$data['title'],
-            'description'=>$data['description'],
-            'status'=>$data['status'],
-            'slug'=>$data['slug'],
-            'story_id'=>$data['story_id'],
-            'content'=>$data['content'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+            'slug' => $data['slug'],
+            'story_id' => $data['story_id'],
+            'content' => $data['content'],
         ]);
 
-        return redirect()->route('quan-ly-chapter.create')->with('success','Thêm mới quan-ly-chapter thành công');
+        return redirect()->route('quan-ly-chapter.create')->with('success', 'Thêm mới quan-ly-chapter thành công');
     }
 
     /**
@@ -89,8 +88,8 @@ class ChapterController extends Controller
     public function edit($id)
     {
         $stories = DB::table('stories')->get();
-        $quan-ly-chapter= Chapter::find($id);
-        return view('admin.quan-ly-chapter.edit',['stories' =>$stories,'quan-ly-chapter'=>$quan-ly-chapter]);
+        $chapter = Chapter::find($id);
+        return view('admin.quan-ly-chapter.edit', ['stories' => $stories, 'quan-ly-chapter' => $chapter]);
     }
 
     /**
@@ -103,22 +102,22 @@ class ChapterController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title'=>'required|max:255',
-            'description'=>'required|max:255',
-            'content'=>'required',
-            'slug'=>'required|max:255',
-            
-        ],[
-            'title.required' => 'Tên phải tồn tại nhé.',
+            'title' => 'required|max:255',
+            'description' => 'required|max:255',
+            'content' => 'required',
+            'slug' => 'required|max:255',
+
+        ], [
+            'title.required' => 'Vui lòng không bỏ trống tên.',
             'title.max' => 'Tên chỉ có tối đa 255 ký tự.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
             'description.max' => 'Mô tả chỉ có tối đa 255 ký tự.',
-            'content.required' => 'Nội dung bắt buộc phải có.',
+            'content.required' => 'Vui lòng không bỏ trống nội dung.',
 
         ]);
-    
+
         $story = Chapter::findOrFail($id);
         $story->title = $request->input('title');
         $story->description = $request->input('description');
@@ -139,6 +138,6 @@ class ChapterController extends Controller
     public function destroy($id)
     {
         Chapter::find($id)->delete();
-        return redirect()->route('quan-ly-chapter.index')->with('success','Xóa quan-ly-chapter thành công');
+        return redirect()->route('quan-ly-chapter.index')->with('success', 'Xóa quan-ly-chapter thành công');
     }
 }

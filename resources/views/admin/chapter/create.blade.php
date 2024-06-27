@@ -26,7 +26,7 @@
                     <form enctype="multipart/form-data" class="row g-3 needs-validation" method="post" action="{{route('quan-ly-chapter.store')}}">
                         @csrf
                         <div class="col-md-6">
-                            <label for="slug" class="form-label">Tiêu đề quan-ly-chapter</label>
+                            <label for="slug" class="form-label">Tiêu đề chapter</label>
                             <input onkeyup="ChangeToSlug()" value="{{old('title')}}" name="title" type="text" class="form-control" id="slug">
                         </div>
                         <div class="col-md-6">
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="story_id" class="form-label">Tên sách truyện</label>
+                            <label for="story_id" class="form-label">Tên truyện</label>
                             <select required name="story_id" id="story_id" type="text" class="form-select">
                                 @foreach ($stories as $story )
                                 <option value="{{$story->id}}">{{$story->name}}</option>
@@ -51,12 +51,12 @@
                         </div>
 
                         <div class="col-md-12">
-                            <label for="description" class="form-label">Tóm tắt sách truyện</label>
+                            <label for="description" class="form-label">Tóm tắt truyện</label>
                             <textarea class="form-control" name="description" id="description" rows="5" style="resize: none;"></textarea>
                         </div>
 
                         <div class="col-md-12">
-                            <label for="content" class="form-label">Nội dung sách truyện</label>
+                            <label for="content" class="form-label">Nội dung truyện</label>
                             <textarea class="form-control" name="content" id="content" rows="5" style="resize: none; height: 100px;"></textarea>
                         </div>
 

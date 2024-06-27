@@ -1,12 +1,11 @@
-html{
+html {
 	overflow-x: hidden;
 }
-img{
-    width: 100% ;
-    
+img {
+	width: 100%;
 }
-a{
-    text-decoration: none !important;
+a {
+	text-decoration: none !important;
 }
 
 .tagcloud05:first-child {
@@ -19,7 +18,7 @@ a{
 }
 .tagcloud05 ul li {
 	display: inline-block;
-	margin: 0 0.3em .3em 1em;
+	margin: 0 0.3em 0.3em 1em;
 	padding: 0;
 }
 .tagcloud05 ul li a {
@@ -33,21 +32,21 @@ a{
 	color: #fff;
 	font-size: 13px;
 	text-decoration: none;
-	-webkit-transition: .2s;
-	transition: .2s;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .tagcloud05 ul li a::before {
 	position: absolute;
 	top: 0;
 	left: -15px;
-	content: '';
+	content: "";
 	width: 0;
 	height: 0;
 	border-color: transparent #3498db transparent transparent;
 	border-style: solid;
 	border-width: 15px 15px 15px 0;
-	-webkit-transition: .2s;
-	transition: .2s;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .tagcloud05 ul li a::after {
 	position: absolute;
@@ -55,7 +54,7 @@ a{
 	left: 0;
 	z-index: 2;
 	display: block;
-	content: '';
+	content: "";
 	width: 6px;
 	height: 6px;
 	margin-top: -3px;
@@ -77,63 +76,61 @@ a{
 	border-right-color: #555;
 }
 
-.switch_color{
+.switch_color {
 	background-color: #181818;
 	color: #fff;
 }
 
-.switch_color_card{
+.switch_color_card {
 	background-color: #181818 !important;
 	color: #fff !important;
 }
-.switch_color_breadcrumb{
+.switch_color_breadcrumb {
 	color: #fff !important;
 }
-.switch_color_breadcrumb::before{
+.switch_color_breadcrumb::before {
 	color: #fff !important;
 }
-.favourite_story{
+.favourite_story {
 	color: pink !important;
 }
-.card-title{
+.card-title {
 	font-size: 12px;
 }
 .modal-title {
 	color: #252129 !important;
 }
-div#social-links{
+div#social-links {
 	max-width: 500px;
-	}
-	div#social-links ul li{
-	
+}
+div#social-links ul li {
 	display: inline-block;
-	}
-	div#social-links ul{
-		margin: 0;
-		padding: 0;
-	}
-	div#social-links ul li{
+}
+div#social-links ul {
+	margin: 0;
+	padding: 0;
+}
+div#social-links ul li {
 	padding-right: 8px;
 	margin: 1px;
 	font-size: 24px;
 	color: #222;
+}
+
+@media (min-width: 320px) {
+	.img_comic {
+		width: 48px !important;
+		height: 80px !important;
 	}
+}
 
-	@media (min-width: 320px) { 
-		.img_comic{
-			width: 48px !important;
-			height: 80px !important;
-		}
+@media (min-width: 768px) {
+	.img_comic {
+		width: 90px !important;
+		height: 100px !important;
 	}
-
-
-
-	@media (min-width: 768px) { 
-		.img_comic{
-			width: 90px !important;
-			height: 100px !important;
-		}
-	 }
-
-
-
+}
+.spinner-grow{
+	height: 24px !important;
+	width: 24px !important;
+}

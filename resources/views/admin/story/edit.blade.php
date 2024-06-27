@@ -59,7 +59,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="type_id" class="form-label">Thể loại sách truyện</label>
+                            <label for="type_id" class="form-label">Thể loại truyện</label>
                             <div class="row">
                                 <?php
                                 $typeIds = array_map(function ($item) {
@@ -81,13 +81,13 @@
                             </div>
                         </div>
                         <div class="col-md-12 ">
-                            <label for="image" class="form-label">Hình ảnh sách truyện</label>
+                            <label for="image" class="form-label">Hình ảnh truyện</label>
                             <input type="file" id="image" name="image" class="form-control-file d-block" aria-label="file example">
                             <br>
                             <img width="100px" height="100px" src="{{ asset('uploads/story/'.$story->image) }}" alt="">
                         </div>
                         <div class="col-md-12">
-                            <label for="description" class="form-label">Tóm tắt sách truyện</label>
+                            <label for="description" class="form-label">Tóm tắt truyện</label>
                             <textarea value="" class="form-control" name="description" id="content" rows="5" style="resize: none;">{{$story->description}}</textarea>
 
                         </div>

@@ -58,7 +58,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="type_id" class="form-label">Thể loại sách truyện</label>
+                            <label for="type_id" class="form-label">Thể loại truyện</label>
                             <div class="row">
                                 @foreach ($types as $type )
                                 <div class="col-md-3">
@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="description" class="form-label">Tóm tắt truyện</label>
-                            <textarea class="form-control" name="description" id="content" rows="5" style="resize: none;"></textarea>
+                            <textarea class="form-control" name="description" id="description" rows="5" style="resize: none;"></textarea>
                         </div>
 
                         <div class="col-12">

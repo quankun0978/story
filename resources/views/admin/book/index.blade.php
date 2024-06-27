@@ -69,5 +69,8 @@
             </div>
         </div>
     </div>
+    <div class="mt-2 justify-content-end d-flex">
+    {{ $books->links('') }}
+    </div>
 </div>
 @endsection

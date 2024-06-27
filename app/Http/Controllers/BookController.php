@@ -17,8 +17,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('admin.book.index', ['books' => Book::orderBy('id', 'ASC')->get()]);        
-
+        return view('admin.book.index', ['books' => Book::orderBy('id', 'ASC')->paginate(10)]);
     }
 
     /**
@@ -27,9 +26,10 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   $categories = DB::table('categories')->get();
+    {
+        $categories = DB::table('categories')->get();
         $types = DB::table('types')->get();
-        return view('admin.book.create',compact('categories','types'));
+        return view('admin.book.create', compact('categories', 'types'));
     }
 
     /**
@@ -49,21 +49,21 @@ class BookController extends Controller
             'link_pdf' => 'required',
             'slug' => 'required|unique:books|max:255',
         ], [
-            'name.required' => 'Tên phải tồn tại nhé.',
+            'name.required' => 'Vui lòng không bỏ trống tên.',
             'name.max' => 'Tên chỉ có tối đa 255 ký tự.',
-            'name.unique' => 'Tên sách truyện đã tồn tại.',
-            'author.required' => 'Tên tác giả phải tồn tại nhé.',
+            'name.unique' => 'Tên sách đã tồn tại.',
+            'author.required' => 'Vui lòng không bỏ trống tên tác giả.',
             'author.max' => 'Tên tác giả chỉ có tối đa 255 ký tự.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống tên slug.',
             'slug.unique' => 'Tên slug đã tồn tại.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
-            'content.required' => 'Nội dung bắt buộc phải có.',
-            'key_word.required' => 'Từ khóa bắt buộc phải có.',
-            'link_pdf.required' => 'Link PDF bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
+            'content.required' => 'Vui lòng không bỏ trống nội dung.',
+            'key_word.required' => 'Vui lòng không bỏ trống từ khóa.',
+            'link_pdf.required' => 'Vui lòng không bỏ trống từ link PDF.',
             'image.required' => 'Vui lòng chọn hình ảnh.',
         ]);
-    
+
         $data = $request->all();
         $get_image = $request->image;
         $path = 'uploads/books/';
@@ -71,7 +71,7 @@ class BookController extends Controller
         $name_image = current(explode('.', $get_name_image));
         $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
         $get_image->move($path, $new_image);
-          Book::create([
+        Book::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'content' => $data['content'],
@@ -81,7 +81,7 @@ class BookController extends Controller
             'slug' => $data['slug'],
             'author' => $data['author'],
             'image' => $new_image,
-            'created_at'=>Carbon::now('Asia/Ho_Chi_Minh')
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ]);
         return redirect()->route('quan-ly-sach.create')->with('success', 'Thêm mới sách thành công');
     }
@@ -94,7 +94,6 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        
     }
 
     /**
@@ -105,8 +104,8 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $book= Book::find($id);
-        return view('admin.book.edit',['book' =>$book]);
+        $book = Book::find($id);
+        return view('admin.book.edit', ['book' => $book]);
     }
 
     /**
@@ -127,46 +126,46 @@ class BookController extends Controller
             'key_word' => 'required',
             'slug' => 'required|max:255',
         ], [
-            'name.required' => 'Tên phải tồn tại nhé.',
+            'name.required' => 'Vui lòng không bỏ trống tên.',
             'name.max' => 'Tên chỉ có tối đa 255 ký tự.',
-            'name.unique' => 'Tên sách truyện đã tồn tại.',
-            'author.required' => 'Tên tác giả phải tồn tại nhé.',
+            'name.unique' => 'Tên sách đã tồn tại.',
+            'author.required' => 'Vui lòng không bỏ trống tên tác giả.',
             'author.max' => 'Tên tác giả chỉ có tối đa 255 ký tự.',
-            'slug.required' => 'Slug phải tồn tại nhé.',
+            'slug.required' => 'Vui lòng không bỏ trống slug.',
             'slug.unique' => 'Tên slug đã tồn tại.',
             'slug.max' => 'Slug chỉ có tối đa 255 ký tự.',
-            'description.required' => 'Mô tả bắt buộc phải có.',
-            'content.required' => 'Nội dung bắt buộc phải có.',
-            'key_word.required' => 'Từ khóa bắt buộc phải có.',
-            'link_pdf.required' => 'Link PDF bắt buộc phải có.',
+            'description.required' => 'Vui lòng không bỏ trống mô tả.',
+            'content.required' => 'Vui lòng không bỏ trống nội dung.',
+            'key_word.required' => 'Vui lòng không bỏ trống từ khóa.',
+            'link_pdf.required' => 'Vui lòng không bỏ trống từ link PDF.',
             'image.required' => 'Vui lòng chọn hình ảnh.',
         ]);
-    
+
         $book = Book::findOrFail($id);
         $book->name = $request->input('name');
         $book->description = $request->input('description');
         $book->status = $request->input('status');
         $book->slug = $request->input('slug');
         $book->author = $request->input('author');
-        $book->updated_at=Carbon::now('Asia/Ho_Chi_Minh');
+        $book->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
         $book->key_word = $request->input('key_word');
         $book->content = $request->input('content');
         $book->link_pdf = $request->input('link_pdf');
-        if($request->image!=null){
-            if(file_exists('uploads/books/'.$book->image)){
-                unlink('uploads/books/'.$book->image);
-               }
-            $get_image= $request->image;
-            $path='uploads/books/';
-            $get_name_image=$get_image->getClientOriginalName();
+        if ($request->image != null) {
+            if (file_exists('uploads/books/' . $book->image)) {
+                unlink('uploads/books/' . $book->image);
+            }
+            $get_image = $request->image;
+            $path = 'uploads/books/';
+            $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
-            $new_image= $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
             $get_image->move($path, $new_image);
             $book->image = $new_image;
         }
         $book->save();
-        
-    
+
+
         return redirect()->back()->with('success', 'Cập nhật sách thành công');
     }
 
@@ -178,12 +177,12 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $book= Book::find($id);
-        $path='uploads/books/'.$book->image;
-        if(file_exists($path)){
-         unlink($path);
+        $book = Book::find($id);
+        $path = 'uploads/books/' . $book->image;
+        if (file_exists($path)) {
+            unlink($path);
         }
         Book::find($id)->delete();
-         return redirect()->route('quan-ly-quan-ly-sach.index')->with('success','Xóa sách thành công');
+        return redirect()->route('quan-ly-quan-ly-sach.index')->with('success', 'Xóa sách thành công');
     }
 }

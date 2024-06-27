@@ -15,9 +15,10 @@ $chapters = $detailComic['chapters'][0]['server_data'] ? $detailComic['chapters'
 
 <body>
     <div>
+
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-3 mb-2">
                 <div class="card">
                     <div class="card-header">
                         Các chapter
@@ -38,16 +39,31 @@ $chapters = $detailComic['chapters'][0]['server_data'] ? $detailComic['chapters'
             </div>
 
             <div class="col-md-9 " style=" height: 80vh; overflow: auto;" id="content_chapter">
+                <div class="card">
+                    <div class="card-body">Vui lòng chọn chapter</div>
+                </div>
             </div>
         </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
                 let debounceTimeout;
-                $('#content_chapter').html(`<div class="card"><div class="card-body">Vui lòng chọn chapter</div> </div>`);
                 $('#chapter').change(function() {
                     clearTimeout(debounceTimeout);
-
+                    $('#content_chapter').html(` <div class="justify-content-center d-flex">
+                    <div class=" loading align-items-center justify-content-center">
+            <div class="spinner-grow text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Vui lòng chờ</p>
+        </div>
+                </div`);
                     let key = $(this).val();
                     if (key !== '' && key !== 'init') {
                         debounceTimeout = setTimeout(() => {
@@ -55,6 +71,7 @@ $chapters = $detailComic['chapters'][0]['server_data'] ? $detailComic['chapters'
                                 url: `${key}`,
                                 method: 'get',
                                 success: function(data) {
+
                                     const domain = data.data.domain_cdn
                                     const chapter_path = data.data.item.chapter_path
                                     const chapters = data && data.data && data.data.item && data.data.item.chapter_image;

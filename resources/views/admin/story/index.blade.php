@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="w-100">
+    <div class="w-100 ">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Danh sách truyện</div>
@@ -74,6 +74,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mt-2 justify-content-end d-flex">
+    {{ $stories->links('') }}
     </div>
 </div>
 @endsection

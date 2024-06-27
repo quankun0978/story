@@ -64,5 +64,8 @@
             </div>
         </div>
     </div>
+    <div class="mt-2 justify-content-end d-flex">
+    {{ $types->links('') }}
+    </div>
 </div>
 @endsection
