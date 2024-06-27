@@ -1,0 +1,139 @@
+html{
+	overflow-x: hidden;
+}
+img{
+    width: 100% ;
+    
+}
+a{
+    text-decoration: none !important;
+}
+
+.tagcloud05:first-child {
+	margin-top: 3em;
+}
+.tagcloud05 ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.tagcloud05 ul li {
+	display: inline-block;
+	margin: 0 0.3em .3em 1em;
+	padding: 0;
+}
+.tagcloud05 ul li a {
+	position: relative;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 1em;
+	background-color: #3498db;
+	border-radius: 0 3px 3px 0;
+	color: #fff;
+	font-size: 13px;
+	text-decoration: none;
+	-webkit-transition: .2s;
+	transition: .2s;
+}
+.tagcloud05 ul li a::before {
+	position: absolute;
+	top: 0;
+	left: -15px;
+	content: '';
+	width: 0;
+	height: 0;
+	border-color: transparent #3498db transparent transparent;
+	border-style: solid;
+	border-width: 15px 15px 15px 0;
+	-webkit-transition: .2s;
+	transition: .2s;
+}
+.tagcloud05 ul li a::after {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	z-index: 2;
+	display: block;
+	content: '';
+	width: 6px;
+	height: 6px;
+	margin-top: -3px;
+	background-color: #fff;
+	border-radius: 100%;
+}
+.tagcloud05 ul li span {
+	display: block;
+	max-width: 100px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.tagcloud05 ul li a:hover {
+	background-color: #555;
+	color: #fff;
+}
+.tagcloud05 ul li a:hover::before {
+	border-right-color: #555;
+}
+
+.switch_color{
+	background-color: #181818;
+	color: #fff;
+}
+
+.switch_color_card{
+	background-color: #181818 !important;
+	color: #fff !important;
+}
+.switch_color_breadcrumb{
+	color: #fff !important;
+}
+.switch_color_breadcrumb::before{
+	color: #fff !important;
+}
+.favourite_story{
+	color: pink !important;
+}
+.card-title{
+	font-size: 12px;
+}
+.modal-title {
+	color: #252129 !important;
+}
+div#social-links{
+	max-width: 500px;
+	}
+	div#social-links ul li{
+	
+	display: inline-block;
+	}
+	div#social-links ul{
+		margin: 0;
+		padding: 0;
+	}
+	div#social-links ul li{
+	padding-right: 8px;
+	margin: 1px;
+	font-size: 24px;
+	color: #222;
+	}
+
+	@media (min-width: 320px) { 
+		.img_comic{
+			width: 48px !important;
+			height: 80px !important;
+		}
+	}
+
+
+
+	@media (min-width: 768px) { 
+		.img_comic{
+			width: 90px !important;
+			height: 100px !important;
+		}
+	 }
+
+
+
