@@ -84,7 +84,7 @@
                             <label for="image" class="form-label">Hình ảnh truyện</label>
                             <input type="file" id="image" name="image" class="form-control-file d-block" aria-label="file example">
                             <br>
-                            <img width="100px" height="100px" src="{{ asset('uploads/story/'.$story->image) }}" alt="">
+                            <img style="width: 90px;" height="100px" src="{{ asset('uploads/story/'.$story->image) }}" alt="">
                         </div>
                         <div class="col-md-12">
                             <label for="description" class="form-label">Tóm tắt truyện</label>

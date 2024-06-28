@@ -30,8 +30,8 @@ class StoryController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categories')->get();
-        $types = DB::table('types')->get();
+        $categories = DB::table('categories')->where('status', "active")->get();
+        $types = DB::table('types')->where('status', "active")->get();
         return view('admin.story.create', compact('categories', 'types'));
     }
 
@@ -116,8 +116,8 @@ class StoryController extends Controller
      */
     public function edit($id)
     {
-        $categories = DB::table('categories')->get();
-        $types = DB::table('types')->get();
+        $categories = DB::table('categories')->where('status', "active")->get();
+        $types = DB::table('types')->where('status', "active")->get();
         $story = Story::find($id);
         return view('admin.story.edit', ['story' => $story, 'categories' => $categories, 'types' => $types]);
     }

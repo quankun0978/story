@@ -67,10 +67,10 @@ Route::get('/truyen-tranh/the-loai/{slug}/{page}',[ComicController::class,'types
 
 //truyen doc
 
-Route::get('/doc-truyen/{id}', [IndexController::class, 'chapters'])->name('doc-truyen');
-Route::get('/truyen-doc/{id}', [IndexController::class, 'readStory'])->name('truyen-doc');
-Route::get('/xem-danh-muc/danh-muc/{slug}/{page}', [IndexController::class, 'category'])->name('danh-muc');
-Route::get('/the-loai/xem-the-loai/{slug}/{page}', [IndexController::class, 'type'])->name('the-loai');
+Route::get('/doc-truyen/{slug}/{id}', [IndexController::class, 'chapters'])->name('doc-truyen');
+Route::get('/truyen-doc/{slug}', [IndexController::class, 'readStory'])->name('truyen-doc');
+Route::get('/danh-muc/{slug}/{page}', [IndexController::class, 'category'])->name('danh-muc');
+Route::get('/the-loai/{slug}/{page}', [IndexController::class, 'type'])->name('the-loai');
 Route::get('/tags/truyen-doc/{key}', [IndexController::class, 'tags'])->name('tags-truyen-doc');
 
 // sach

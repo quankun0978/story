@@ -37,7 +37,7 @@
       <h4 class="mb-3 " style="text-transform: uppercase;">{{$titleHead}}</h4>
       <div class="row mb-3">
         @if (count($comics)==0)
-        <p>Hiện đang cập nhật...</p>
+        <p style="height: 50vh;">Hiện đang cập nhật...</p>
         @else
         @foreach ($comics as $key => $comic )
         <div class="col-lg-2 col-md-2 col-6 position-relative ">

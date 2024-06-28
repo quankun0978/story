@@ -38,7 +38,6 @@
                                             <td>@if ($category->status == 'active') Kích hoạt @else Không kích hoạt @endif</td>
                                             <td>
                                                 <div class="d-flex gap-1">
-                                                    <a href="{{ route('quan-ly-danh-muc.show', $category->id) }}" class="btn btn-primary btn-sm">Xem</a>
                                                     <a href="{{ route('quan-ly-danh-muc.edit', $category->id) }}" class="btn btn-warning btn-sm">Sửa</a>
                                                     <form action="{{ route('quan-ly-danh-muc.destroy', $category->id) }}" method="POST">
                                                         @csrf

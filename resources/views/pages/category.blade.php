@@ -2,29 +2,28 @@
 @section('content')
 
 <?php
-  $totalPage = count($stories) > 24 ? (int) ceil(count($stories) / 24) : 1;
-  $pages = range(1, $totalPage);
+$totalPage = count($stories) > 24 ? (int) ceil(count($stories) / 24) : 1;
+$pages = range(1, $totalPage);
 ?>
+@if (isset($category))
 @if ($page<=0||$page>$totalPage)
   <p>Mục này không tồn tại !!!</p>
   @else
-  <div class="">
+  <div>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{url('/')}}">Trang chủ</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{$category[0]->name}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{$category->name}}</li>
       </ol>
     </nav>
     <div class="my-3">
-      <h4 class="mb-3 " style="text-transform: uppercase;">{{$category[0]->name}}</h4>
       @if (count($storiesByPage)==0)
-      <p>Hiện đang cập nhật</p>
-      @else
+        @else
       <div class="owl-carousel owl-theme">
         @foreach ($storiesByPage as $story )
         <div class="item">
-          <a href="{{ route('truyen-doc',  $story->story->slug) }}">
-            <img style="width: 129px;" height="192" src="{{ asset('uploads/story/'.$story->story->image) }}" alt="">
+          <a href="{{ route('truyen-doc',  $story->slug) }}">
+            <img style="width: 129px;" height="192" src="{{ asset('uploads/story/'.$story->image) }}" alt="">
           </a>
         </div>
 
@@ -34,10 +33,10 @@
       @endif
 
       <div class="my-3">
-        <h4 class="mb-3 " style="text-transform: uppercase;">{{$category[0]->name}}</h4>
+        <h4 class="mb-3 " style="text-transform: uppercase;">{{$category->name}}</h4>
         <div class="row mb-3">
           @if (count($stories)==0)
-          <p>Hiện đang cập nhật...</p>
+          <p style="height: 50vh;">Hiện đang cập nhật...</p>
           @else
           @foreach ($stories as $story )
           <div class="col-lg-2 col-md-2 col-6 position-relative ">
@@ -60,7 +59,7 @@
         </div>
         <select required name="page" id="page" type="text" class="form-select w-auto">
           @foreach ($pages as $number)
-          <option @if ($page==$number) selected @endif value="{{route('danh-muc',['page'=>$number,'slug'=>$category[0]->slug])}}">Trang {{ $number }}</option>
+          <option @if ($page==$number) selected @endif value="{{route('danh-muc',['page'=>$number,'slug'=>$category->slug])}}">Trang {{ $number }}</option>
           @endforeach
         </select>
       </div>
@@ -68,6 +67,12 @@
 
   </div>
   @endif
+  @else
+  <div style="height: 50vh;">
+    <p>Danh mục này hiện đã ngừng phát hành </p>
+  </div>
+  @endif
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {

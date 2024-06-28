@@ -65,7 +65,7 @@ class ChapterController extends Controller
             'content' => $data['content'],
         ]);
 
-        return redirect()->route('quan-ly-chapter.create')->with('success', 'Thêm mới quan-ly-chapter thành công');
+        return redirect()->route('quan-ly-chapter.create')->with('success', 'Thêm mới chapter thành công');
     }
 
     /**
@@ -89,7 +89,7 @@ class ChapterController extends Controller
     {
         $stories = DB::table('stories')->get();
         $chapter = Chapter::find($id);
-        return view('admin.quan-ly-chapter.edit', ['stories' => $stories, 'quan-ly-chapter' => $chapter]);
+        return view('admin.chapter.edit', ['stories' => $stories, 'chapter' => $chapter]);
     }
 
     /**
@@ -126,7 +126,7 @@ class ChapterController extends Controller
         $story->story_id = $request->input('story_id');
         $story->content = $request->input('content');
         $story->save();
-        return redirect()->back()->with('success', 'Cập nhật quan-ly-chapter thành công');
+        return redirect()->back()->with('success', 'Cập nhật chapter thành công');
     }
 
     /**
@@ -138,6 +138,6 @@ class ChapterController extends Controller
     public function destroy($id)
     {
         Chapter::find($id)->delete();
-        return redirect()->route('quan-ly-chapter.index')->with('success', 'Xóa quan-ly-chapter thành công');
+        return redirect()->route('quan-ly-chapter.index')->with('success', 'Xóa chapter thành công');
     }
 }

@@ -38,7 +38,6 @@
                                         <td>@if ($type->status=='active')Kích hoạt @else Không kích hoạt @endif</td>
                                         <td>
                                             <div class="d-flex gap-1">
-                                                <a href="{{ route('the-loai.show', $type->id ) }}" class="btn btn-primary btn-sm">Xem</a>
                                                 <a href="{{ route('the-loai.edit', $type->id ) }}" class="btn btn-warning btn-sm">Sửa</a>
                                                 <form action="{{ route('the-loai.destroy', $type->id) }}" method="POST">
                                                     @csrf

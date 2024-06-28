@@ -1,31 +1,34 @@
 @extends('welcome')
 @section('content')
 
-
 <div class="d-flex flex-column gap-2">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{url('/')}}">Trang chủ</a></li>
-      <li class="breadcrumb-item"><a href="{{url('quan-ly-danh-muc/xem-quan-ly-danh-muc/'.$chapterBySlug[0]->story->category->slug)}}">{{$chapterBySlug[0]->story->category->name}}</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{$chapterBySlug[0]->story->name}}</li>
+      @if ($chapterBySlug->story->category->status=='active')
+      <li class="breadcrumb-item"><a href="{{route('danh-muc',['page'=>1,'slug'=>$chapterBySlug->story->category->slug])}}">{{$chapterBySlug->story->category->name}}</a></li>
+      @endif
+      <li class="breadcrumb-item"><a href="{{route('truyen-doc',['slug'=>$slug])}}">{{$slug}}</a></li>
+
+      <li class="breadcrumb-item active" aria-current="page">{{$chapterBySlug->story->name}}</li>
     </ol>
   </nav>
   <div class="row">
-    <h5>{{$chapterBySlug[0]->story->name}}</h5>
-    <p>Chương hiện tại {{$chapterBySlug[0]->title}}</p>
+    <h5>{{$chapterBySlug->story->name}}</h5>
+    <p>Chương hiện tại {{$chapterBySlug->title}}</p>
     <div class="d-flex gap-2">
       <a href="{{url('doc-truyen/'.$prev_chapter)}}" class="btn btn-outline-primary 
-  @if ($min_id->id==$chapterBySlug[0]->id) disabled @endif">
+  @if ($min_id->id==$chapterBySlug->id) disabled @endif">
         Tập trước
       </a>
       <a ar href="{{url('doc-truyen/'.$next_chapter)}}" class="btn btn-outline-primary 
-      @if ($max_id->id==$chapterBySlug[0]->id) disabled @endif">Tập sau</a>
+      @if ($max_id->id==$chapterBySlug->id) disabled @endif">Tập sau</a>
     </div>
   </div>
   <div class="col-md-12 ">
     <select required name="chapter" id="chapter" type="text" class="form-select">
       @foreach ($chapters as $chapter)
-      <option @if ($chapter->slug==$chapterBySlug[0]->slug)
+      <option @if ($chapter->slug==$chapterBySlug->slug)
         selected
         @endif value="{{ url('doc-truyen/' . $chapter->slug) }}">{{ $chapter->title }}</option>
       @endforeach
@@ -34,7 +37,7 @@
   <hr>
 
   <div class="col-md-12 ">
-    <p>{!! $chapterBySlug[0]->content !!}</p>
+    <p>{!! $chapterBySlug->content !!}</p>
 
   </div>
   <div class="col-md-12 ">

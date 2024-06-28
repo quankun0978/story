@@ -44,7 +44,6 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex gap-1">
-                                                        <a href="{{ route('quan-ly-sach.show', $story->id) }}" class="btn btn-primary btn-sm">Xem</a>
                                                         <a href="{{ route('quan-ly-sach.edit', $story->id) }}" class="btn btn-warning btn-sm">Sửa</a>
                                                         <form action="{{ route('quan-ly-sach.destroy', $story->id) }}" method="POST">
                                                             @csrf

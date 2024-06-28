@@ -1,48 +1,52 @@
 @extends('welcome')
 @section('content')
+<?php
 
+$chapters = $storyBySlug->chapter()->where('status', 'active')->get();
+
+?>
 <div class="d-flex flex-column gap-2">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{url('/')}}">Trang chủ</a></li>
-      <li class="breadcrumb-item"><a href="{{url('quan-ly-danh-muc/xem-quan-ly-danh-muc/'.$storyBySlug[0]->category->slug)}}">{{$storyBySlug[0]->category->name}}</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{$storyBySlug[0]->name}}</li>
+      <li class="breadcrumb-item"><a href="{{route('danh-muc',['slug'=>$storyBySlug->category['slug'],'page'=>1])}}">{{$storyBySlug->category->name}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{$storyBySlug->name}}</li>
     </ol>
   </nav>
   <div class="row">
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-3">
-          @if(count($storyBySlug) > 0)
-          <img class="story_img" height="200" style="width: 150px;" src="{{asset('uploads/story/'.$storyBySlug[0]->image)}}" alt="">
+          @if(isset($storyBySlug) > 0)
+          <img class="story_img" height="200" style="width: 150px;" src="{{asset('uploads/story/'.$storyBySlug->image)}}" alt="">
         </div>
         <div class="col-md-9">
           <ul class="list-unstyled">
-            <li>Tên truyện :{{$storyBySlug[0]->name}}</li>
-            <li>Tác giả :{{$storyBySlug[0]->author}}</li>
+            <li>Tên truyện :{{$storyBySlug->name}}</li>
+            <li>Tác giả :{{$storyBySlug->author}}</li>
             <li class="d-flex gap-1 align-items-center">Thể loại :
-              @if (count($storyBySlug[0]->typeStory )==0)
+              @if (count($storyBySlug->typeStory )==0)
               chưa rõ
               @else
-              @foreach ($storyBySlug[0]->typeStory as $type )
+              @foreach ($storyBySlug->typeStory as $type )
               <div style="color: #fff; border-radius: 2px; padding: 0 2px; height:  20px; font-size: 8px; display: flex ; align-items: center; justify-content: center;" class="bg-success">
                 {{$type->type->name}}
               </div>
               @endforeach
               @endif
             </li>
-            <li>Danh mục :{{$storyBySlug[0]->category->name}}</li>
-            <li>Ngày đăng : @if ($storyBySlug[0] ->created_at!=null)
-              {{ $storyBySlug[0]  ->created_at->diffForHumans()}}
+            <li>Danh mục :@if($storyBySlug->category->status=="active") {{$storyBySlug->category->name}} @else đang cập nhật... @endif</li>
+            <li>Ngày đăng : @if ($storyBySlug ->created_at!=null)
+              {{ $storyBySlug  ->created_at->diffForHumans()}}
               @else chưa rõ
               @endif
             </li>
             <li>Số chapter :200</li>
             <li>Số lượt đọc :2000</li>
             <li><a href="">Xem mục lục</a></li>
-            <div class="@if (count($storyBySlug[0]->chapter) > 0) d-flex @endif gap-2">
-              @if (count($storyBySlug[0]->chapter)>0)
-              <li><a href="{{route('doc-truyen',$storyBySlug[0]->chapter[0]->slug)}}" class="btn btn-primary">Đọc ngay</a></li>
+            <div class="@if (count($storyBySlug->chapter) > 0) d-flex @endif gap-2">
+              @if (count($chapters)>0)
+              <li><a href="{{route('doc-truyen',['id'=>$chapters[0]['slug'],'slug'=> $storyBySlug['slug']])}}" class="btn btn-primary">Đọc ngay</a></li>
               @else <p class="m-0">Hiện đang cập nhật...</p>
               @endif
               <li class="btn btn-danger btn_favourite">
@@ -71,13 +75,13 @@
   <div class="col-md-12 ">
     <h4>Tóm tắt nội dung</h4>
     <p class="">
-      {!! $storyBySlug[0]->description !!}
+      {!! $storyBySlug->description !!}
     </p>
   </div>
   <div>
     <p>Từ khóa tìm kiếm :</p>
     <?php
-      $keys = explode(',', $storyBySlug[0]->key_word);
+    $keys = explode(',', $storyBySlug->key_word);
     ?>
     @if (count($keys)==1)
     <p>
@@ -96,10 +100,10 @@
 
   <div class="col-md-12 ">
     <h4>Mục lục</h4>
-    @if(count($storyBySlug[0]->chapter) > 0)
+    @if(count($chapters) > 0)
     <ul>
-      @foreach ($storyBySlug[0]->chapter as $chapter)
-      <li><a href="{{route('doc-truyen',$chapter->slug)}}">{{$chapter->title}}</a></li>
+      @foreach ($chapters as $chapter)
+      <li><a href="{{route('doc-truyen',['id'=>$chapter['slug'],'slug'=> $storyBySlug['slug']])}}">{{$chapter->title}}</a></li>
 
       @endforeach
 
@@ -108,9 +112,9 @@
     @endif
   </div>
   <div>
-    <input class="story_id" hidden type="text" value="{{$storyBySlug[0]->id}}" name="id" id="">
-    <input class="story_name" hidden type="text" value="{{$storyBySlug[0]->name}}" name="name" id="">
-    <input class="story_slug" hidden type="text" value="{{$storyBySlug[0]->slug}}" name="slug" id="">
+    <input class="story_id" hidden type="text" value="{{$storyBySlug->id}}" name="id" id="">
+    <input class="story_name" hidden type="text" value="{{$storyBySlug->name}}" name="name" id="">
+    <input class="story_slug" hidden type="text" value="{{$storyBySlug['slug']}}" name="slug" id="">
 
   </div>
   <div class="row">
@@ -120,14 +124,14 @@
       <div class="text-center mb-2 ">
         <img height="200" src="{{ asset('uploads/story/'.$story->image) }}" class="card-img-top" alt="Fissure in Sandstone" />
         <p class="card-title mt-1">
-          <a href="{{ route('truyen-doc',  $story->slug) }}">{{$story->name}} </a>
+          <a href="{{ route('truyen-doc',  $storyBySlug['slug']) }}">{{$story->name}} </a>
         </p>
       </div>
     </div>
 
     @endforeach
   </div>
-  
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {

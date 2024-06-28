@@ -4,20 +4,23 @@
   $totalPage = count($stories) > 24 ? (int) ceil(count($stories) / 24) : 1;
   $pages = range(1, $totalPage);
 ?>
+@if ($type->status=='active')
 @if ($page<=0||$page>$totalPage)
   <p>Mục này không tồn tại !!!</p>
   @else
-  <div class="">
+  <div>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{url('/')}}">Trang chủ</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{$type[0]->name}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{$type->name}}</li>
       </ol>
     </nav>
-    <div class="my-3">
-      <h4 class="mb-3 " style="text-transform: uppercase;">{{$type[0]->name}}</h4>
-      @if (count($storiesByPage)==0)
-      <p>Hiện đang cập nhật</p>
+
+
+  </div>
+  @endif
+  <div class="my-3">
+      @if (count($storiesByPage)==0)  
       @else
       <div class="owl-carousel owl-theme">
         @foreach ($storiesByPage as $story )
@@ -33,7 +36,7 @@
       @endif
 
       <div class="my-3">
-        <h4 class="mb-3 " style="text-transform: uppercase;">{{$type[0]->name}}</h4>
+        <h4 class="mb-3 " style="text-transform: uppercase;">{{$type->name}}</h4>
         <div class="row mb-3">
           @if (count($storiesByPage)==0)
           <p>Hiện đang cập nhật...</p>
@@ -60,14 +63,15 @@
         </div>
         <select required name="page" id="page" type="text" class="form-select w-auto">
           @foreach ($pages as $number)
-          <option @if ($page==$number) selected @endif value="{{route('the-loai',['page'=>$number,'slug'=>$type[0]->slug])}}">Trang {{ $number }}</option>
+          <option @if ($page==$number) selected @endif value="{{route('the-loai',['page'=>$number,'slug'=>$type->slug])}}">Trang {{ $number }}</option>
           @endforeach
         </select>
       </div>
     </div>
+    @else <p>Thể loại này đã ngừng phát hành</p>
+@endif
 
-  </div>
-  @endif
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
